@@ -1,4 +1,16 @@
+# Archivos confidenciales
 serviceAccountKey.json
 .env
+
+# Archivos generados por Python
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
+
+# Entornos virtuales
+venv/
+env/
+
+# Streamlit
+.streamlit/
