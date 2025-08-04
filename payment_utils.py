@@ -50,8 +50,8 @@ def create_stripe_checkout_session(db, cart, usuario):
             payment_method_types=['card'],
             line_items=line_items,
             mode='payment',
-            success_url=f"{os.getenv('STRIPE_SUCCESS_URL')}&session_id={{CHECKOUT_SESSION_ID}}",
-            cancel_url=os.getenv("STRIPE_CANCEL_URL"),
+            success_url=f"{os.getenv('STRIPE_SUCCESS_URL', st.secrets.get('STRIPE_SUCCESS_URL'))}&session_id={{CHECKOUT_SESSION_ID}}",
+            cancel_url=os.getenv("STRIPE_CANCEL_URL", st.secrets.get('STRIPE_CANCEL_URL')),
             customer_email=usuario['email'],
             metadata={
                 'user_id': usuario['uid'],
@@ -76,4 +76,5 @@ def create_stripe_checkout_session(db, cart, usuario):
                 'error': str(e),
                 'updated_at': datetime.now()
             })
+
         raise Exception(f"Error en checkout: {str(e)}")
