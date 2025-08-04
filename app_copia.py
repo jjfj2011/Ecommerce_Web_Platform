@@ -316,4 +316,3 @@ else:
         st.session_state.login = True
 
         st.switch_page('pages/catalogo.py')
-
