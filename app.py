@@ -3,12 +3,12 @@ import os, re
 from urllib.parse import urlencode
 import firebase_admin
 from firebase_admin import credentials, auth, firestore
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 import requests
 from datetime import datetime
 import stripe
 import time
-load_dotenv()
+# load_dotenv()
 
 # Configuración de la página
 st.set_page_config(page_title="Fashion Store",page_icon="🛍️",layout="wide",initial_sidebar_state="collapsed")
@@ -21,13 +21,15 @@ st.markdown(html_content, unsafe_allow_html=True)
 # Se ejecuta una única vez cuando carga la aplicación
 if 'has_run' not in st.session_state:
     st.session_state.has_run = True
-    service_account_key_path = 'serviceAccountKey.json'
+    # service_account_key_path = 'serviceAccountKey.json'
+    service_account_key_path = st.secrets["google_service_account"]
     collection_name = "usuarios"
     st.session_state.redirect_uri = "https://fashion-store-app.streamlit.app"
 
     # --- Inicialización de Firebase ADMIN SDK ---
     if not firebase_admin._apps:
-        cred = credentials.Certificate(service_account_key_path)
+        service_account_dict = dict(service_account_key_path)
+        cred = credentials.Certificate(service_account_dict)
         firebase_admin.initialize_app(cred)
     st.session_state.db = firestore.client()
 
@@ -314,3 +316,4 @@ else:
         st.session_state.login = True
 
         st.switch_page('pages/catalogo.py')
+
