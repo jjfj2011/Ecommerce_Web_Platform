@@ -276,15 +276,6 @@ if 'payment' in query_params:
                 st.error(f"Error al procesar pago exitoso: {str(e)}")
         else:
             st.error("No se recibió el ID de sesión de Stripe")
- else:
-        payment_status = query_params.get('payment')
-        if payment_status == 'cancelled':
-            st.warning("⚠️ El pago fue cancelado. Puedes continuar comprando.")
-        else:
-            st.error(f"⚠️ El pago fue interrumpido o falló: {payment_status}")
-
-        st.query_params.clear()
-        st.rerun()
 
 if not st.session_state.usuario:
     if not code:
@@ -325,6 +316,7 @@ else:
         st.session_state.login = True
 
         st.switch_page('pages/catalogo.py')
+
 
 
 
