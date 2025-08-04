@@ -262,12 +262,12 @@ if 'payment' in query_params:
                                 st.session_state.usuario = user_doc.to_dict()
                                 st.session_state.login = True
                                 
-                                # ✨ CAMBIO 1: Guardar el ID del pedido procesado
+                                # Guardar el ID del pedido procesado
                                 st.session_state.processed_order_id = order_id
                                 
                                 st.query_params.clear()
                                 
-                                # ✨ CAMBIO 2: Redirigir a la página de confirmación
+                                # Redirigir a la página de confirmación
                                 st.switch_page("pages/compraok.py") 
                                 st.stop()
                 else:
@@ -316,4 +316,5 @@ else:
         st.session_state.login = True
 
         st.switch_page('pages/catalogo.py')
+
 
