@@ -14,3 +14,7 @@ env/
 
 # Streamlit
 .streamlit/
+
+# Archivos sensibles
+__pycache__/
+*.pyc
