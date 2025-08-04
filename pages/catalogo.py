@@ -337,7 +337,8 @@ with st.sidebar:
                 st.session_state.cart,
                 st.session_state.usuario
             )
-            st.markdown(f'<meta http-equiv="refresh" content="0;URL=\'{checkout_url}\'">', unsafe_allow_html=True)
+            # st.markdown(f'<meta http-equiv="refresh" content="0;URL=\'{checkout_url}\'">', unsafe_allow_html=True)
+            st.markdown(f'<a href="{checkout_url}" target="_blank">Haz clic aquí para continuar al checkout</a>', unsafe_allow_html=True)
             #except Exception as e:
             #    st.error(f"Error: {str(e)}")
     else:
