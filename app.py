@@ -23,11 +23,17 @@ if 'has_run' not in st.session_state:
     st.session_state.has_run = True
     service_account_key_path = 'serviceAccountKey.json'
     collection_name = "usuarios"
-    st.session_state.redirect_uri = "http://localhost:8501"
+    st.session_state.redirect_uri = "https://fashion-store-app.streamlit.app"
 
     # --- Inicialización de Firebase ADMIN SDK ---
     if not firebase_admin._apps:
-        cred = credentials.Certificate(service_account_key_path)
+        firebase_config = {
+            "type": os.environ["FIREBASE_TYPE"],
+            "project_id": os.environ["FIREBASE_PROJECT_ID"],
+            "private_key": os.environ["FIREBASE_PRIVATE_KEY"].replace('\\n', '\n'),
+            # ... resto de valores
+        }
+        cred = credentials.Certificate(firebase_config)
         firebase_admin.initialize_app(cred)
     st.session_state.db = firestore.client()
 
@@ -312,4 +318,5 @@ else:
     
     with st.spinner('Todo listo! Redireccionando a la plataforma...'):
         st.session_state.login = True
+
         st.switch_page('pages/catalogo.py')
