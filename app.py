@@ -228,7 +228,7 @@ query_params = st.query_params
 code = query_params.get("code")
 state = query_params.get("state")
 
-# En la sección donde manejas los query_params:
+# Sección donde se maneja los query_params:
 if 'payment' in query_params:
     if query_params['payment'] == 'success':
         session_id = query_params.get('session_id')
@@ -276,6 +276,10 @@ if 'payment' in query_params:
                 st.error(f"Error al procesar pago exitoso: {str(e)}")
         else:
             st.error("No se recibió el ID de sesión de Stripe")
+    elif query_params['payment'] == 'cancelled':
+        st.warning("⚠️ El pago fue cancelado. Puedes continuar comprando.")
+        st.query_params.clear()
+        st.rerun()
 
 if not st.session_state.usuario:
     if not code:
@@ -316,6 +320,7 @@ else:
         st.session_state.login = True
 
         st.switch_page('pages/catalogo.py')
+
 
 
 
