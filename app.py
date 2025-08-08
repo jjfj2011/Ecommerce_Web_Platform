@@ -279,7 +279,7 @@ if 'payment' in query_params:
     elif query_params['payment'] == 'cancelled':
         st.warning("⚠️ El pago fue cancelado. Puedes continuar comprando.")
         st.query_params.clear()
-        st.rerun()
+        st.switch_page("pages/catalogo.py")
 
 if not st.session_state.usuario:
     if not code:
@@ -320,6 +320,7 @@ else:
         st.session_state.login = True
 
         st.switch_page('pages/catalogo.py')
+
 
 
 
