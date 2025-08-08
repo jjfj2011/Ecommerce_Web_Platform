@@ -52,7 +52,7 @@ def create_stripe_checkout_session(db, cart, usuario):
             mode='payment',
             success_url=f"{os.getenv('STRIPE_SUCCESS_URL')}&session_id={{CHECKOUT_SESSION_ID}}",
             # cancel_url=os.getenv("STRIPE_CANCEL_URL"),
-            cancel_url = "https://fashion-store-app.streamlit.app?payment=cancelled",
+            cancel_url = f"{os.getenv('STRIPE_CANCEL_URL')}&session_id={{CHECKOUT_SESSION_ID}}",
             customer_email=usuario['email'],
             metadata={
                 'user_id': usuario['uid'],
@@ -79,6 +79,7 @@ def create_stripe_checkout_session(db, cart, usuario):
             })
 
         raise Exception(f"Error en checkout: {str(e)}")
+
 
 
 
