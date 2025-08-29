@@ -281,13 +281,13 @@ if 'payment' in query_params:
                 st.error(f"Error al procesar pago exitoso: {str(e)}")
         else:
             st.error("No se recibió el ID de sesión de Stripe")
-    elif 'payment' in query_params and query_params['payment'] == 'cancelled':
-        # Si el usuario canceló el pago, redirigir al catálogo
-        if 'usuario' in st.session_state and st.session_state.usuario:
-            st.switch_page('pages/catalogo.py')
-        else:
-            # Si no está logueado, mantenerlo en login
-            st.query_params.clear()
+elif 'payment' in query_params and query_params['payment'] == 'cancelled':
+    # Si el usuario canceló el pago, redirigir al catálogo
+    if 'usuario' in st.session_state and st.session_state.usuario:
+        st.switch_page('pages/catalogo.py')
+    else:
+        # Si no está logueado, mantenerlo en login
+        st.query_params.clear()
 
 if not st.session_state.usuario:
     if not code:
@@ -328,6 +328,7 @@ else:
         st.session_state.login = True
 
         st.switch_page('pages/catalogo.py')
+
 
 
 
