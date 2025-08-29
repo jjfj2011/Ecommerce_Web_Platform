@@ -225,6 +225,11 @@ if 'usuario' not in st.session_state:
 
 # Captura los parámetros de la URL después de la redirección
 query_params = st.query_params
+# Manejo específico para cancelación de pagos
+if 'payment' in query_params and query_params['payment'] == 'cancelled':
+    if 'usuario' in st.session_state and st.session_state.usuario:
+        st.switch_page('pages/catalogo.py')
+    st.query_params.clear()
 code = query_params.get("code")
 state = query_params.get("state")
 
@@ -323,6 +328,7 @@ else:
         st.session_state.login = True
 
         st.switch_page('pages/catalogo.py')
+
 
 
 
